@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- scripts, styles, and metadata -->
+  </head>
+  <body>
+    <!-- Page Content goes here -->
+     <header>
+        <h1>Store</h1>
+        <h2>Nothing much here</h2>
+        <nav>
+            <a href="index.html">Home</a> |
+            <a href="profile.html">Profile</a> |
+            <a href="inventory.html">Inventory</a> |
+            <a href="store.html">Store</a> |
+        </nav>
+     </header>
+     <main>
+        <h1>Currency</h1>
+        <p>You have 100 coins</p>
+        <h1>Buy a pack!</h1>
+        <p>Packs cost 20 coints</p>
+        <form method="POST" action="/buy">
+            <dl>
+                <dt>Pack 1</dt>
+                <dd><input type="checkbox" name="buy" value="pack1">Contains 5 random skeleton cards</dd>
+                <dt>Pack 2</dt>
+                <dd><input type="checkbox" name="buy" value="pack2">Contains 5 random frog cards</dd>
+            </dl>
+            <button type="submit">Buy Pack</button>
+        </form>
+     </main>
+  </body>
+</html>

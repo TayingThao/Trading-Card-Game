@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- scripts, styles, and metadata -->
+  </head>
+  <body>
+    <!-- Page Content goes here -->
+     <header>
+        <h1>Inventory</h1>
+        <nav>
+            <a href="index.html">Home</a> |
+            <a href="profile.html">Profile</a> |
+            <a href="inventory.html">Inventory</a> |
+            <a href="store.html">Store</a> |
+        </nav>
+     </header>
+     <main>
+        <p>This is a list of your cards</p>
+        <ul>
+            <li>
+                <a href="rattles.html">
+                    Rattles
+                </a>
+            </li>
+            <li>Rattles' Friend</li>
+            <li>Frog</li>
+        </ul>   
+        <h1>Sell Cards</h1>
+        <form method="POST" action="/sell">
+            <ul>
+                <li>
+                    <input type="checkbox" name="sell" value="rattles"> Rattles - Sell for 10 coins
+                </li>
+                <li>
+                    <input type="checkbox" name="sell" value="rattles_friend">
+                    Rattles' Friend - Sell for 15 coins</li>
+                <li>
+                    <input type="checkbox" name="sell" value="frog">
+                    Frog - Sell for 5 coins
+                </li>
+            </ul>
+            <button type="submit">Sell Selected Cards</button>
+        </form>
+        <h1>Decks</h1>
+        <ul>
+            <li>
+                <a href="deck1.html">Deck 1</a>
+            </li>
+        </ul>
+     </main>
+  </body>
+</html>
