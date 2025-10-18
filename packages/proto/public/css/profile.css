@@ -57,22 +57,22 @@ main p {
     margin: 20px;
 }
 
-.updates {
-    max-width: 400px;
+.user-info {
+    width: 300px;
     color: var(--color-text-list);
     background-color: var(--color-background-list);
     padding: 30px;
 }
 
-.update-item::before {
+.info-item::before {
     content: "- ";
 }
 
-.update-item {
+.info-item {
     font-size: var(--font-size-list-term);
 }
 
-.update-description {
+.info-description {
     font-size: var(--font-size-list-definition);
     margin-bottom: 15px;
     margin-left: 40px;

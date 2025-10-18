@@ -1,0 +1,27 @@
+:root {
+    /* Color Variables */
+    --color-background-page: rgb(79, 79, 79);
+    --color-background-header: rgb(29, 29, 29);
+    --color-background-list:  rgb(255, 255, 255);
+    --color-text-header: rgb(255, 255, 255);
+    --color-text-main: rgb(255, 255, 255);
+    --color-text-list: rgb(0, 0, 0);
+
+    /* Typography */
+    --font-size-title: 40px;
+    --font-size-header-nav: 20px;
+    --font-size-main-text: 20px;
+    --font-size-list-term: 20px;
+    --font-size-list-definition: 15px;
+    --font-family-header: fantasy;
+    --fony-family-main: cursive;
+
+    /* Layout */
+    --header-height: 125px;
+    --header-padding: 20px;
+    --header-spacing: 50px;
+    --navigation-padding: 0px;
+    --logo-size: 100px;
+    --logo-border-radius: 10%;
+    --header-text-align: center;
+}

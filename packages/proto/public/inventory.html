@@ -2,51 +2,53 @@
 <html>
   <head>
     <!-- scripts, styles, and metadata -->
+     <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/inventory.css">
   </head>
   <body>
     <!-- Page Content goes here -->
      <header>
-        <h1>Inventory</h1>
-        <nav>
-            <a href="index.html">Home</a> |
-            <a href="profile.html">Profile</a> |
-            <a href="inventory.html">Inventory</a> |
-            <a href="store.html">Store</a> |
-        </nav>
+        <img src="images/TCGicon.jpg" alt="Game Logo" width="100">
+        <div>
+            <h1>Trading Card Game</h1>
+            <nav>
+                <a href="index.html">Home</a> |
+                <a href="profile.html">Profile</a> |
+                <a href="inventory.html">Inventory</a> |
+                <a href="store.html">Store</a> |
+            </nav>
+        </div>
+        <h2>Inventory</h2>
      </header>
      <main>
         <p>This is a list of your cards</p>
-        <ul>
-            <li>
-                <a href="rattles.html">
-                    Rattles
-                </a>
+        <ul class="inventory-list">
+            <li class="inventory-item">
+                <img class="inventory-img" src="images/rattles.png" alt="Rattles Card" width="300"><br>
             </li>
-            <li>Rattles' Friend</li>
-            <li>Frog</li>
+            <li class="inventory-item">
+                <img class="inventory-img" src="images/kingtoadjr.jpg" alt="King Toad Jr" width="300"><br>
+            </li>
+            <li class="inventory-item">
+                <img class="inventory-img" src="images/cloudbackwhale.jpg" alt="Cloudback Whale" width="300"><br>
+            </li>
         </ul>   
-        <h1>Sell Cards</h1>
-        <form method="POST" action="/sell">
+        <p>Sell Cards</p>
+        <form class="sell-form" method="POST" action="/sell">
             <ul>
                 <li>
                     <input type="checkbox" name="sell" value="rattles"> Rattles - Sell for 10 coins
                 </li>
                 <li>
-                    <input type="checkbox" name="sell" value="rattles_friend">
-                    Rattles' Friend - Sell for 15 coins</li>
+                    <input type="checkbox" name="sell" value="kingtoadjr">
+                    King Toad Jr - Sell for 15 coins</li>
                 <li>
-                    <input type="checkbox" name="sell" value="frog">
-                    Frog - Sell for 5 coins
+                    <input type="checkbox" name="sell" value="cloudbackwhale">
+                    Cloudback Whale - Sell for 5 coins
                 </li>
             </ul>
             <button type="submit">Sell Selected Cards</button>
         </form>
-        <h1>Decks</h1>
-        <ul>
-            <li>
-                <a href="deck1.html">Deck 1</a>
-            </li>
-        </ul>
      </main>
   </body>
 </html>

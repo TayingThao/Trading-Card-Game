@@ -19,7 +19,7 @@ header {
     font-family: var(--font-family-header);
 }
 
-.logo {
+header img {
     border-radius: var(--logo-border-radius);
     margin-right: var(--header-spacing);
     width: var(--logo-size);
@@ -57,23 +57,24 @@ main p {
     margin: 20px;
 }
 
-.updates {
-    max-width: 400px;
-    color: var(--color-text-list);
+.inventory-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    list-style-type: none;
+}
+
+.inventory-img {
+    border-radius: 10%;
+}
+
+.sell-form {
     background-color: var(--color-background-list);
     padding: 30px;
+    display: flex;
+    flex-direction: column;
 }
 
-.update-item::before {
-    content: "- ";
-}
-
-.update-item {
-    font-size: var(--font-size-list-term);
-}
-
-.update-description {
-    font-size: var(--font-size-list-definition);
-    margin-bottom: 15px;
-    margin-left: 40px;
+.sell-form ul {
+    list-style-type: none;
+    line-height: 2;
 }

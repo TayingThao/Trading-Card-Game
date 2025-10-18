@@ -57,23 +57,13 @@ main p {
     margin: 20px;
 }
 
-.updates {
-    max-width: 400px;
-    color: var(--color-text-list);
+.buy-form {
     background-color: var(--color-background-list);
     padding: 30px;
+    display: flex;
+    flex-direction: column;
 }
-
-.update-item::before {
-    content: "- ";
-}
-
-.update-item {
-    font-size: var(--font-size-list-term);
-}
-
-.update-description {
-    font-size: var(--font-size-list-definition);
-    margin-bottom: 15px;
-    margin-left: 40px;
+.buy-form dl {
+    list-style-type: none;
+    line-height: 2;
 }
