@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="css/store.css">
   </head>
-  <body>
+  <body class = "dark-mode">
     <!-- Page Content goes here -->
      <header>
         <img class="logo" src="images/TCGicon.jpg" alt="Game Logo" width="100">
@@ -19,6 +19,10 @@
             </nav>
         </div>
         <h2>Store</h2>
+        <label>
+          <input type="checkbox"  id="toggleDarkMode"/>
+          Light mode
+        </label>
      </header>
      <main>
         <h1>Currency</h1>
@@ -35,5 +39,6 @@
             <button type="submit">Buy Pack</button>
         </form>
      </main>
+     <script src="./store.js"></script>
   </body>
 </html>

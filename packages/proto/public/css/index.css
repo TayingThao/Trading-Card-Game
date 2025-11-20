@@ -44,6 +44,11 @@ header h2 {
     margin-left: var(--header-spacing);
 }
 
+header label {
+    font-size: var(--font-size-header-nav);
+    margin-left: var(--header-spacing);
+}
+
 main {
     display: flex;
     flex-direction: column;

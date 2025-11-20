@@ -1,12 +1,4 @@
 :root {
-    /* Color Variables */
-    --color-background-page: rgb(79, 79, 79);
-    --color-background-header: rgb(29, 29, 29);
-    --color-background-list:  rgb(255, 255, 255);
-    --color-text-header: rgb(255, 255, 255);
-    --color-text-main: rgb(255, 255, 255);
-    --color-text-list: rgb(0, 0, 0);
-
     /* Typography */
     --font-size-title: 40px;
     --font-size-header-nav: 20px;
@@ -14,7 +6,7 @@
     --font-size-list-term: 20px;
     --font-size-list-definition: 15px;
     --font-family-header: fantasy;
-    --fony-family-main: cursive;
+    --font-family-main: cursive;
 
     /* Layout */
     --header-height: 125px;
@@ -24,4 +16,23 @@
     --logo-size: 100px;
     --logo-border-radius: 10%;
     --header-text-align: center;
+}
+
+/* Dark Mode Variables */
+body.dark-mode {
+    --color-background-page: rgb(79, 79, 79);
+    --color-background-header: rgb(29, 29, 29);
+    --color-background-list:  rgb(255, 255, 255);
+    --color-text-header: rgb(255, 255, 255);
+    --color-text-main: rgb(255, 255, 255);
+    --color-text-list: rgb(0, 0, 0);
+}
+
+body.light-mode {
+    --color-background-page: rgb(255, 255, 255);
+    --color-background-header: rgb(200, 200, 200);
+    --color-background-list:  rgb(240, 240, 240);
+    --color-text-header: rgb(0, 0, 0);
+    --color-text-main: rgb(0, 0, 0);
+    --color-text-list: rgb(0, 0, 0);
 }

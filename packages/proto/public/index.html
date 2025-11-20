@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="css/tokens.css">
     <link rel="stylesheet" href="css/index.css">
   </head>
-  <body>
+  <body class="dark-mode">
     <!-- Page Content goes here -->
      <header>
         <img class="logo" src="images/TCGicon.jpg" alt="Game Logo" width="100">
@@ -19,6 +19,10 @@
             </nav>
         </div>
         <h2>Home</h2>
+        <label>
+          <input type="checkbox"  id="toggleDarkMode"/>
+          Light mode
+        </label>
      </header>
      <main>
         <p>Updates</p>
@@ -29,5 +33,6 @@
             <dd class="update-description">Added a card page</dd>
         </dl>
      </main>
+    <script src="./index.js"></script>
   </body>
 </html>
