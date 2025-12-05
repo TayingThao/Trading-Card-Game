@@ -1,8 +1,10 @@
 import { html, css, LitElement } from "lit";
 import { property, state } from "lit/decorators.js";
+import { Observer, Auth } from "@calpoly/mustang";
 import "./inventory-card.js";
 
 interface InventoryItem {
+    _id: string;
     name: string;
     qty: number;
     imgSrc: string;
@@ -15,19 +17,38 @@ src?: string;
 @state()
 items: InventoryItem[] = [];
 
+_authObserver = new Observer<Auth.Model>(this, "trading:auth");
+_authModel?: Auth.Model;
+
+get authorization() {
+  return (
+    this._authModel?.user?.authenticated && {
+      Authorization:
+        `Bearer ${(this._authModel.user as Auth.AuthenticatedUser).token}`
+    }
+  );
+}
+
 connectedCallback() {
     super.connectedCallback();
-    if (this.src) {
-      this.hydrate(this.src);
-    }
+    
+    this._authObserver.observe((auth: Auth.Model) => {
+      this._authModel = auth;
+      if (this.src) {
+        this.hydrate(this.src);
+      }
+    });
 }
 
 hydrate(src: string) {
-    fetch(src)
+    fetch(src, {
+      headers: this.authorization || {}
+    })
     .then(res => res.json())
     .then((json: any) => {
         if(json)    {
             this.items = json.map((obj: any) => ({
+                _id: obj._id,
                 name: obj.name,
                 qty: obj.qty,
                 imgSrc: obj.imgSrc

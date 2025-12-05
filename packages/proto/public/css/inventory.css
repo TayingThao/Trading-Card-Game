@@ -8,42 +8,6 @@ body {
     grid-template-rows: var(--header-height) 1fr 200px;
 }
 
-header {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-    padding: var(--header-padding);
-    background-color: var(--color-background-header);
-    color: var(--color-text-header);
-    text-align: var(--header-text-align);
-    font-family: var(--font-family-header);
-}
-
-header img {
-    border-radius: var(--logo-border-radius);
-    margin-right: var(--header-spacing);
-    width: var(--logo-size);
-}
-
-header h1 {
-    font-size: var(--font-size-title); 
-}
-
-header nav {
-    padding: var(--navigation-padding);
-    font-size: var(--font-size-header-nav);
-}
-
-header nav a {
-    color: var(--header-text-color);
-    text-decoration: none;
-    font-size: var(--font-size-header-nav);
-}
-
-header h2 {
-    margin-left: var(--header-spacing);
-}
-
 main {
     display: flex;
     flex-direction: column;

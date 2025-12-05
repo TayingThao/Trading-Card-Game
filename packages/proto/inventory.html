@@ -2,41 +2,30 @@
 <html>
   <head>
     <!-- scripts, styles, and metadata -->
-     <link rel="stylesheet" href="css/tokens.css">
-    <link rel="stylesheet" href="css/inventory.css">
+     <link rel="stylesheet" href="public/css/tokens.css">
+    <link rel="stylesheet" href="public/css/inventory.css">
     <script type="module">
-      import { define } from "@calpoly/mustang";
+      import { define, Auth } from "@calpoly/mustang";
       import { InventoryCardElement } from "/src/inventory-card.js";
       import { InventoryViewElement } from "/src/inventory-view.js";
+      import { TCGHeaderElement } from "/src/components/tcg-header.js";
+      
       define({
+        "mu-auth": Auth.Provider,
         "inventory-card": InventoryCardElement,
-        "inventory-view": InventoryViewElement
+        "inventory-view": InventoryViewElement,
+        "tcg-header": TCGHeaderElement
       });
     </script>
   </head>
   <body class="dark-mode">
-    <!-- Page Content goes here -->
-     <header>
-        <img src="images/TCGicon.jpg" alt="Game Logo" width="100">
-        <div>
-            <h1>Trading Card Game</h1>
-            <nav>
-                <a href="index.html">Home</a> |
-                <a href="profile.html">Profile</a> |
-                <a href="inventory.html">Inventory</a> |
-                <a href="store.html">Store</a> |
-            </nav>
-        </div>
-        <h2>Inventory</h2>
-        <label>
-          <input type="checkbox"  id="toggleDarkMode"/>
-          Light mode
-        </label>
-     </header>
-     <main>
+    <mu-auth provides="trading:auth">
+      <!-- Page Content goes here -->
+      <tcg-header page="Inventory"></tcg-header>
+      <main>
         <p>This is a list of your cards</p>
-        <inventory-view src="/data/inventory.json">
-        </inventory-view>  
+          <inventory-view src="/api/inventory">
+          </inventory-view>  
         <p>Sell Cards</p>
         <form class="sell-form" method="POST" action="/sell">
             <ul>
@@ -54,6 +43,6 @@
             <button type="submit">Sell Selected Cards</button>
         </form>
      </main>
-     <script src="./theme.js"></script>
+    </mu-auth>
   </body>
 </html>

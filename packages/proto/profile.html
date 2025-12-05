@@ -3,7 +3,7 @@
   <head>
     <!-- scripts, styles, and metadata -->
     <link rel="stylesheet" href="public/css/tokens.css">
-    <link rel="stylesheet" href="public/css/index.css">
+    <link rel="stylesheet" href="public/css/profile.css">
     <script type="module">
       import { define, Auth } from "@calpoly/mustang";
       import { TCGHeaderElement } from "/src/components/tcg-header.js";
@@ -17,16 +17,16 @@
   <body class="dark-mode">
     <mu-auth provides="trading:auth">
       <!-- Page Content goes here -->
-      <tcg-header page="Home"></tcg-header>
+      <tcg-header page="Profile"></tcg-header>
       <main>
-          <p>Updates</p>
-          <dl class="updates">
-              <dt class="update-item">Oct 18</dt>
-              <dd class="update-description">We deployed! Everything is almost as good as it could be.</dd>
-              <dt class="update-item">Update 0</dt>
-              <dd class="update-description">Added a card page</dd>
-          </dl>
-      </main>
+        <p>User Info</p>
+        <dl class="user-info">
+            <dt class="info-item">Username</dt>
+            <dd class="info-description">Taying</dd>
+            <dt class="info-item">Password</dt>
+            <dd class="info-description">*********</dd>
+        </dl>
+     </main>
     </mu-auth>
   </body>
 </html>
