@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- scripts, styles, and metadata -->
+     <link rel="stylesheet" href="css/tokens.css">
+    <link rel="stylesheet" href="css/inventory.css">
+    <script type="module" crossorigin src="/assets/sub-BqsytruM.js"></script>
+  </head>
+  <body class="dark-mode">
+    <!-- Page Content goes here -->
+     <header>
+        <img src="images/TCGicon.jpg" alt="Game Logo" width="100">
+        <div>
+            <h1>Trading Card Game</h1>
+            <nav>
+                <a href="index.html">Home</a> |
+                <a href="profile.html">Profile</a> |
+                <a href="inventory.html">Inventory</a> |
+                <a href="store.html">Store</a> |
+            </nav>
+        </div>
+        <h2>Inventory</h2>
+        <label>
+          <input type="checkbox"  id="toggleDarkMode"/>
+          Light mode
+        </label>
+     </header>
+     <main>
+        <p>This is a list of your cards</p>
+        <inventory-view>
+          <inventory-card img-src="/images/rattles.png" qty="3">
+            Rattles
+          </inventory-card>
+
+          <inventory-card img-src="/images/kingtoadjr.jpg" qty="1">
+            King Toad Jr
+          </inventory-card>
+
+          <inventory-card img-src="/images/cloudbackwhale.jpg" qty="2">
+            Cloudback Whale
+          </inventory-card>
+        </inventory-view>  
+        <p>Sell Cards</p>
+        <form class="sell-form" method="POST" action="/sell">
+            <ul>
+                <li>
+                    <input type="checkbox" name="sell" value="rattles"> Rattles - Sell for 10 coins
+                </li>
+                <li>
+                    <input type="checkbox" name="sell" value="kingtoadjr">
+                    King Toad Jr - Sell for 15 coins</li>
+                <li>
+                    <input type="checkbox" name="sell" value="cloudbackwhale">
+                    Cloudback Whale - Sell for 5 coins
+                </li>
+            </ul>
+            <button type="submit">Sell Selected Cards</button>
+        </form>
+     </main>
+     <script src="./inventory.js"></script>
+  </body>
+</html>
