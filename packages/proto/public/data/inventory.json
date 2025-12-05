@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Rattles",
+    "qty": 3,
+    "imgSrc": "/images/rattles.png"
+  },
+  {
+    "name": "King Toad Jr",
+    "qty": 1,
+    "imgSrc": "/images/kingtoadjr.jpg"
+  },
+  {
+    "name": "Cloudback Whale",
+    "qty": 2,
+    "imgSrc": "/images/cloudbackwhale.jpg"
+  }
+]

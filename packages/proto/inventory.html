@@ -35,18 +35,7 @@
      </header>
      <main>
         <p>This is a list of your cards</p>
-        <inventory-view>
-          <inventory-card img-src="/images/rattles.png" qty="3">
-            Rattles
-          </inventory-card>
-
-          <inventory-card img-src="/images/kingtoadjr.jpg" qty="1">
-            King Toad Jr
-          </inventory-card>
-
-          <inventory-card img-src="/images/cloudbackwhale.jpg" qty="2">
-            Cloudback Whale
-          </inventory-card>
+        <inventory-view src="/data/inventory.json">
         </inventory-view>  
         <p>Sell Cards</p>
         <form class="sell-form" method="POST" action="/sell">
