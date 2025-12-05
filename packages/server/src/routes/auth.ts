@@ -78,8 +78,12 @@ export function authenticateUser(
     res.status(401).end();
   } else {
     jwt.verify(token, TOKEN_SECRET, (error, decoded) => {
-      if (decoded) next();
-      else res.status(401).end();
+      if (decoded) {
+        (req as any).user = decoded;
+        next();
+      } else {
+        res.status(401).end();
+      }
     });
   }
 }

@@ -3,6 +3,7 @@ import { InventoryItem } from "../models/inventoryItem";
 
 const InventoryItemSchema = new Schema<InventoryItem>(
   {
+    username: { type: String, required: true, trim: true },
     name: { type: String, required: true, trim: true },
     qty: { type: Number, required: true },
     imgSrc: { type: String, required: true, trim: true }
@@ -12,12 +13,12 @@ const InventoryItemSchema = new Schema<InventoryItem>(
 
 const InventoryItemModel = model<InventoryItem>("InventoryItem", InventoryItemSchema);
 
-function index(): Promise<InventoryItem[]> {
-  return InventoryItemModel.find();
+function index(username: string): Promise<InventoryItem[]> {
+  return InventoryItemModel.find({ username });
 }
 
-function get(name: string): Promise<InventoryItem> {
-  return InventoryItemModel.find({ name })
+function get(username: string, name: string): Promise<InventoryItem> {
+  return InventoryItemModel.find({ username, name })
     .then(list => list[0])
     .catch(() => { throw `${name} Not Found`; });
 }
@@ -27,8 +28,8 @@ function create(json: InventoryItem): Promise<InventoryItem> {
   return t.save();
 }
 
-function update(name: string, item: InventoryItem): Promise<InventoryItem> {
-  return InventoryItemModel.findOneAndUpdate({ name }, item, {
+function update(username: string, name: string, item: InventoryItem): Promise<InventoryItem> {
+  return InventoryItemModel.findOneAndUpdate({ username, name }, item, {
     new: true
   }).then((updated) => {
     if (!updated) throw `${name} Not Found`;
@@ -36,10 +37,21 @@ function update(name: string, item: InventoryItem): Promise<InventoryItem> {
   });
 }
 
-function remove(name: string): Promise<void> {
-  return InventoryItemModel.findOneAndDelete({ name }).then((deleted) => {
+function remove(username: string, name: string): Promise<void> {
+  return InventoryItemModel.findOneAndDelete({ username, name }).then((deleted) => {
     if (!deleted) throw `${name} Not Found`;
   });
 }
 
-export default { index, get, create, update, remove };
+function incrementQty(username: string, name: string, amount: number = 1): Promise<InventoryItem> {
+  return InventoryItemModel.findOneAndUpdate(
+    { username, name },
+    { $inc: { qty: amount } },
+    { new: true }
+  ).then((updated) => {
+    if (!updated) throw `${name} Not Found`;
+    return updated;
+  });
+}
+
+export default { index, get, create, update, remove, incrementQty };
