@@ -24,8 +24,14 @@ router.post("/", async (req: Request, res: Response) => {
       const randomCard = cardNames[Math.floor(Math.random() * cardNames.length)];
       
       try {
-        // Try to increment existing card
-        const updated = await InventoryItems.incrementQty(username, randomCard, 1);
+        // Try to get existing card
+        const existingCard = await InventoryItems.get(username, randomCard);
+        // Update with incremented quantity
+        const updatedCard = {
+          ...existingCard,
+          qty: existingCard.qty + 1
+        };
+        const updated = await InventoryItems.update(username, randomCard, updatedCard);
         cardsAdded.push(updated);
       } catch (err) {
         // Card doesn't exist, create it

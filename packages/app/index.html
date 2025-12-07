@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+  <head>
+    <!-- scripts, styles, and metadata -->
+    <link rel="stylesheet" href="public/css/tokens.css">
+    <link rel="stylesheet" href="public/css/index.css">
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body class="dark-mode">
+    <mu-history provides="trading:history">
+      <mu-auth provides="trading:auth" redirect="/login.html">
+        <article class="page">
+          <tcg-header></tcg-header>
+          <mu-switch></mu-switch>
+        </article>
+      </mu-auth>
+    </mu-history>
+  </body>
+</html>

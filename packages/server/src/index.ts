@@ -3,6 +3,8 @@ import { connect } from "./services/mongo";
 import inventoryRouter from "./routes/inventory";
 import storeRouter from "./routes/store";
 import auth, { authenticateUser } from "./routes/auth";
+import fs from "node:fs/promises";
+import path from "path";
 
 
 connect("cards");
@@ -20,6 +22,13 @@ app.use("/api/inventory", authenticateUser, inventoryRouter);
 app.use("/api/store", authenticateUser, storeRouter);
 
 app.use("/auth", auth);
+
+app.use("/app", (req: Request, res: Response) => {
+  const indexHtml = path.resolve(staticDir, "index.html");
+  fs.readFile(indexHtml, { encoding: "utf8" }).then((html) =>
+    res.send(html)
+  );
+});
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);

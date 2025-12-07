@@ -43,15 +43,4 @@ function remove(username: string, name: string): Promise<void> {
   });
 }
 
-function incrementQty(username: string, name: string, amount: number = 1): Promise<InventoryItem> {
-  return InventoryItemModel.findOneAndUpdate(
-    { username, name },
-    { $inc: { qty: amount } },
-    { new: true }
-  ).then((updated) => {
-    if (!updated) throw `${name} Not Found`;
-    return updated;
-  });
-}
-
-export default { index, get, create, update, remove, incrementQty };
+export default { index, get, create, update, remove };
