@@ -1,11 +1,17 @@
-import { css, html, LitElement } from "lit";
-import { define } from "@calpoly/mustang";
+import { css, html } from "lit";
+import { View, define } from "@calpoly/mustang";
+import { Msg } from "../messages";
+import { Model } from "../model";
 import { LoginFormElement } from "../auth/login-form";
 
-export class LoginViewElement extends LitElement {
+export class LoginViewElement extends View<Model, Msg> {
   static uses = define({
     "login-form": LoginFormElement
   });
+
+  constructor() {
+    super("trading:model");
+  }
 
   render() {
     return html`

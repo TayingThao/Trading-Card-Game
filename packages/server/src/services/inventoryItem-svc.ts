@@ -29,9 +29,11 @@ function create(json: InventoryItem): Promise<InventoryItem> {
 }
 
 function update(username: string, name: string, item: InventoryItem): Promise<InventoryItem> {
-  return InventoryItemModel.findOneAndUpdate({ username, name }, item, {
-    new: true
-  }).then((updated) => {
+  return InventoryItemModel.findOneAndUpdate(
+    { username, name },
+    { $set: { qty: item.qty, imgSrc: item.imgSrc } },
+    { new: true }
+  ).then((updated) => {
     if (!updated) throw `${name} Not Found`;
     return updated;
   });

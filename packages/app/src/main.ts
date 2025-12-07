@@ -2,9 +2,13 @@ import {
   Auth,
   define,
   History,
-  Switch
+  Switch,
+  Store
 } from "@calpoly/mustang";
 import { html } from "lit";
+import { Msg } from "./messages";
+import { Model, init } from "./model";
+import update from "./update";
 import { TCGHeaderElement } from "./components/tcg-header";
 import { HomeViewElement } from "./views/home-view";
 import { InventoryViewElement } from "./views/inventory-view";
@@ -49,6 +53,11 @@ define({
         super(routes, "trading:history", "trading:auth");
     }
     },
+    "mu-store": class AppStore extends Store.Provider<Model, Msg> {
+    constructor() {
+      super(update, init, "trading:auth");
+    }
+  },
   "tcg-header": TCGHeaderElement,
   "home-view": HomeViewElement,
   "inventory-view": InventoryViewElement,

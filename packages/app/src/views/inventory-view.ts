@@ -1,78 +1,44 @@
-import { html, css, LitElement } from "lit";
-import { state } from "lit/decorators.js";
-import { Observer, Auth, define } from "@calpoly/mustang";
+import { define, View, Auth, Observer } from "@calpoly/mustang";
+import { html, css } from "lit";
+import { Msg } from "../messages";
+import { Model } from "../model";
 import { InventoryCardElement } from "../components/inventory-card";
 
-interface InventoryItem {
-    _id: string;
-    name: string;
-    qty: number;
-    imgSrc: string;
-}
-
-export class InventoryViewElement extends LitElement {
+export class InventoryViewElement extends View<Model, Msg> {
   static uses = define({
     "inventory-card": InventoryCardElement
   });
 
-  @state()
-  items: InventoryItem[] = [];
-
   _authObserver = new Observer<Auth.Model>(this, "trading:auth");
-  _authModel?: Auth.Model;
 
-  get src() {
-    return `/api/inventory/`;
-  }
-
-  get authorization() {
-    return (
-      this._authModel?.user?.authenticated && {
-        Authorization:
-          `Bearer ${(this._authModel.user as Auth.AuthenticatedUser).token}`
-      }
-    );
+  constructor() {
+    super("trading:model");
   }
 
   connectedCallback() {
     super.connectedCallback();
     
     this._authObserver.observe((auth: Auth.Model) => {
-      this._authModel = auth;
-      this.hydrate(this.src);
+      if (auth.user?.authenticated) {
+        const username = auth.user.username;
+        this.dispatchMessage([
+          "inventory/request",
+          { username }
+        ]);
+      }
     });
   }
 
-  hydrate(src: string) {
-    fetch(src, {
-      headers: this.authorization || {}
-    })
-    .then(res => res.json())
-    .then((json: any) => {
-        if(json)    {
-            this.items = json.map((obj: any) => ({
-                _id: obj._id,
-                name: obj.name,
-                qty: obj.qty,
-                imgSrc: obj.imgSrc
-            }));
-        }
-    })
-  }
-
-  renderItem(item: InventoryItem) {
+  render() {
+    const { inventory = [] } = this.model;
     return html`
-      <inventory-card img-src=${item.imgSrc} qty=${item.qty}>
-        ${item.name}
-      </inventory-card>
-    `;
-  }
-
-  override render() {
-    return html`
-        <div class="inventory-grid">
-            ${this.items.map(this.renderItem)}
-        </div> 
+      <div class="inventory-grid">
+        ${inventory.map((item) => html`
+          <inventory-card img-src=${item.imgSrc} qty=${item.qty}>
+            ${item.name}
+          </inventory-card>
+        `)}
+      </div>
     `;
   }
 

@@ -1,6 +1,13 @@
-import { css, html, LitElement } from "lit";
+import { View } from "@calpoly/mustang";
+import { css, html } from "lit";
+import { Msg } from "../messages";
+import { Model } from "../model";
 
-export class HomeViewElement extends LitElement {
+export class HomeViewElement extends View<Model, Msg> {
+  constructor() {
+    super("trading:model");
+  }
+
   render() {
     return html`
       <main>

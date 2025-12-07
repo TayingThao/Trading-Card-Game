@@ -1,8 +1,13 @@
-import { html, css, LitElement } from "lit";
+import { View, Auth, Observer } from "@calpoly/mustang";
+import { html, css } from "lit";
 import { state } from "lit/decorators.js";
-import { Observer, Auth } from "@calpoly/mustang";
+import { Msg } from "../messages";
+import { Model } from "../model";
 
-export class StoreViewElement extends LitElement {
+export class StoreViewElement extends View<Model, Msg> {
+  @state()
+  username?: string;
+
   @state()
   message?: string;
 
@@ -10,26 +15,18 @@ export class StoreViewElement extends LitElement {
   error?: string;
 
   _authObserver = new Observer<Auth.Model>(this, "trading:auth");
-  _authModel?: Auth.Model;
 
-  get src() {
-    return "/api/store";
-  }
-
-  get authorization() {
-    return (
-      this._authModel?.user?.authenticated && {
-        Authorization:
-          `Bearer ${(this._authModel.user as Auth.AuthenticatedUser).token}`
-      }
-    );
+  constructor() {
+    super("trading:model");
   }
 
   connectedCallback() {
     super.connectedCallback();
     
     this._authObserver.observe((auth: Auth.Model) => {
-      this._authModel = auth;
+      if (auth.user?.authenticated) {
+        this.username = auth.user.username;
+      }
     });
   }
 
@@ -38,26 +35,18 @@ export class StoreViewElement extends LitElement {
     this.message = undefined;
     this.error = undefined;
 
-    fetch(this.src, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        ...(this.authorization || {})
-      },
-      body: JSON.stringify({ packType: "pack1" })
-    })
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(`Failed to purchase pack: ${res.status}`);
-      }
-      return res.json();
-    })
-    .then((data) => {
-      this.message = `Successfully purchased pack! Added ${data.cardsAdded || 5} cards to your inventory.`;
-    })
-    .catch((err) => {
-      this.error = err.message || "Failed to purchase pack";
-    });
+    if (!this.username) {
+      this.error = "Please log in to purchase packs";
+      return;
+    }
+
+    this.dispatchMessage([
+      "store/purchase",
+      { username: this.username, packType: "pack1" }
+    ]);
+
+    // Show success message (the actual inventory update happens through the store)
+    this.message = "Purchase request sent! Check your inventory.";
   }
 
   render() {
