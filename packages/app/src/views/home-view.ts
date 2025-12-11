@@ -1,5 +1,5 @@
 import { View } from "@calpoly/mustang";
-import { html } from "lit";
+import { html, css } from "lit";
 import { Msg } from "../messages";
 import { Model } from "../model";
 
@@ -10,7 +10,6 @@ export class HomeViewElement extends View<Model, Msg> {
 
   render() {
     return html`
-      <link rel="stylesheet" href="/styles/index.css">
       <main>
         <p>Updates</p>
         <dl class="updates">
@@ -22,4 +21,45 @@ export class HomeViewElement extends View<Model, Msg> {
       </main>
     `;
   }
+
+  static styles = css`
+    * {
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: cursive;
+    }
+
+    main p {
+      color: rgb(255, 255, 255);
+      font-size: 20px;
+      margin: 20px;
+    }
+
+    .updates {
+      max-width: 400px;
+      color: rgb(0, 0, 0);
+      background-color: rgb(255, 255, 255);
+      padding: 30px;
+    }
+
+    .update-item::before {
+      content: "- ";
+    }
+
+    .update-item {
+      font-size: 20px;
+    }
+
+    .update-description {
+      font-size: 15px;
+      margin-bottom: 15px;
+      margin-left: 40px;
+    }
+  `;
 }

@@ -2,7 +2,93 @@
 <html>
   <head>
     <!-- scripts, styles, and metadata -->
-    <link rel="stylesheet" href="/styles/tokens.css">
+    <style>
+      /* tokens.css */
+      :root {
+        /* Typography */
+        --font-size-title: 40px;
+        --font-size-header-nav: 20px;
+        --font-size-main-text: 20px;
+        --font-size-list-term: 20px;
+        --font-size-list-definition: 15px;
+        --font-family-header: fantasy;
+        --font-family-main: cursive;
+
+        /* Layout */
+        --header-height: 125px;
+        --header-padding: 20px;
+        --header-spacing: 50px;
+        --navigation-padding: 0px;
+        --logo-size: 100px;
+        --logo-border-radius: 10%;
+        --header-text-align: center;
+      }
+
+      /* Dark Mode Variables */
+      body.dark-mode {
+        --color-background-page: rgb(79, 79, 79);
+        --color-background-header: rgb(29, 29, 29);
+        --color-background-list:  rgb(255, 255, 255);
+        --color-text-header: rgb(255, 255, 255);
+        --color-text-main: rgb(255, 255, 255);
+        --color-text-list: rgb(0, 0, 0);
+      }
+
+      body.light-mode {
+        --color-background-page: rgb(255, 255, 255);
+        --color-background-header: rgb(200, 200, 200);
+        --color-background-list:  rgb(240, 240, 240);
+        --color-text-header: rgb(0, 0, 0);
+        --color-text-main: rgb(0, 0, 0);
+        --color-text-list: rgb(0, 0, 0);
+      }
+
+      /* index.css */
+      * {
+        margin: 0;
+        box-sizing: border-box;
+      }
+      
+      body {
+        background-color: var(--color-background-page);
+        display: grid;
+        grid-template-rows: var(--header-height) 1fr 200px;
+      }
+
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-family: var(--font-family-main);
+      }
+
+      main p {
+        color: var(--color-text-main);
+        font-size: var(--font-size-main-text);
+        margin: 20px;
+      }
+
+      .updates {
+        max-width: 400px;
+        color: var(--color-text-list);
+        background-color: var(--color-background-list);
+        padding: 30px;
+      }
+
+      .update-item::before {
+        content: "- ";
+      }
+
+      .update-item {
+        font-size: var(--font-size-list-term);
+      }
+
+      .update-description {
+        font-size: var(--font-size-list-definition);
+        margin-bottom: 15px;
+        margin-left: 40px;
+      }
+    </style>
     <script type="module" src="/src/main.ts"></script>
   </head>
   <body class="dark-mode">

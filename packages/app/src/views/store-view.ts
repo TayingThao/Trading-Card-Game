@@ -66,7 +66,6 @@ export class StoreViewElement extends View<Model, Msg> {
 
   render() {
     return html`
-      <link rel="stylesheet" href="/styles/store.css">
       <main>
         <h1>Buy a pack!</h1>
         <p>Packs cost 20 coins</p>
@@ -75,34 +74,53 @@ export class StoreViewElement extends View<Model, Msg> {
         ${this.error ? html`<p class="error">${this.error}</p>` : ''}
         
         <mu-form 
-          class="buy-form" 
+          class="buy-form"
           @mu-form:submit=${this.handleSubmit}>
           <input type="hidden" name="packType" value="pack1" />
           <dl>
             <dt>Pack 1</dt>
             <dd>Contains 5 random cards</dd>
           </dl>
-          <button type="submit">Buy Pack</button>
         </mu-form>
       </main>
     `;
   }
 
   static styles = css`
-    button {
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      border: 2px solid #0056b3;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
+    * {
+      margin: 0;
+      box-sizing: border-box;
     }
 
-    button:hover {
-      background-color: #0056b3;
-      border-color: #004085;
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: cursive;
+      padding-top: 1rem;
+    }
+
+    main h1 {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    main p {
+      color: rgb(255, 255, 255);
+      font-size: 20px;
+      margin: 20px;
+    }
+
+    .buy-form {
+      background-color: rgb(255, 255, 255);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .buy-form dl {
+      list-style-type: none;
+      line-height: 2;
     }
 
     .success {

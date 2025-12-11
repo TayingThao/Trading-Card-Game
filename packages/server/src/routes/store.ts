@@ -38,7 +38,7 @@ router.post("/", async (req: Request, res: Response) => {
         const newCard = {
           name: randomCard,
           qty: 1,
-          imgSrc: `/images/${randomCard.toLowerCase().replace(/\s+/g, '')}.jpg`,
+          imgSrc: `/icons/${randomCard.toLowerCase().replace(/\s+/g, '')}.jpg`,
           username: username
         };
         const created = await InventoryItems.create(newCard);

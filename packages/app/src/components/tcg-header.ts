@@ -52,7 +52,7 @@ export class TCGHeaderElement extends LitElement {
   render() {
     return html`
       <header>
-        <img class="logo" src="images/TCGicon.jpg" alt="Game Logo" width="100">
+        <img class="logo" src="/icons/TCGicon.jpg" alt="Game Logo" width="100">
         <div>
           <h1>Trading Card Game</h1>
           <nav>

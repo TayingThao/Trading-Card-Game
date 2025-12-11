@@ -1,5 +1,5 @@
 import { define, View, Auth, Observer } from "@calpoly/mustang";
-import { html } from "lit";
+import { html, css } from "lit";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import { InventoryCardElement } from "../components/inventory-card";
@@ -32,7 +32,6 @@ export class InventoryViewElement extends View<Model, Msg> {
   render() {
     const { inventory = [] } = this.model;
     return html`
-      <link rel="stylesheet" href="/styles/inventory.css">
       <main>
         <ul class="inventory-list">
           ${inventory.map((item) => html`
@@ -46,4 +45,46 @@ export class InventoryViewElement extends View<Model, Msg> {
       </main>
     `;
   }
+
+  static styles = css`
+    * {
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: cursive;
+    }
+
+    main p {
+      color: rgb(255, 255, 255);
+      font-size: 20px;
+      margin: 20px;
+    }
+
+    .inventory-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      list-style-type: none;
+    }
+
+    .inventory-img {
+      border-radius: 10%;
+    }
+
+    .sell-form {
+      background-color: rgb(255, 255, 255);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sell-form ul {
+      list-style-type: none;
+      line-height: 2;
+    }
+  `;
 }
