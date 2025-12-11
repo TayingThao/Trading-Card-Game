@@ -1,5 +1,5 @@
 import { define, View, Auth, Observer } from "@calpoly/mustang";
-import { html, css } from "lit";
+import { html } from "lit";
 import { Msg } from "../messages";
 import { Model } from "../model";
 import { InventoryCardElement } from "../components/inventory-card";
@@ -32,22 +32,18 @@ export class InventoryViewElement extends View<Model, Msg> {
   render() {
     const { inventory = [] } = this.model;
     return html`
-      <div class="inventory-grid">
-        ${inventory.map((item) => html`
-          <inventory-card img-src=${item.imgSrc} qty=${item.qty}>
-            ${item.name}
-          </inventory-card>
-        `)}
-      </div>
+      <link rel="stylesheet" href="/styles/inventory.css">
+      <main>
+        <ul class="inventory-list">
+          ${inventory.map((item) => html`
+            <li>
+              <inventory-card img-src=${item.imgSrc} qty=${item.qty}>
+                ${item.name}
+              </inventory-card>
+            </li>
+          `)}
+        </ul>
+      </main>
     `;
   }
-
-  static styles = css`
-    .inventory-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      padding: 10px;
-    }
-  `;
 }

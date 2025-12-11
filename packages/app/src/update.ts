@@ -8,36 +8,26 @@ export default function update(
   model: Model,
   user: Auth.User
 ): Model | ThenUpdate<Model, Msg> {
-  console.log("Update called with message:", message[0], "Current model:", model);
-  
   switch (message[0]) {
     case "inventory/request": {
       const { username } = message[1];
-      console.log("Requesting inventory for:", username);
       return [
         { ...model, inventory: [] },
         requestInventory(message[1], user)
-          .then((inventory) => {
-            console.log("Inventory fetched:", inventory);
-            return ["inventory/save", { username, inventory }];
-          })
+          .then((inventory) => ["inventory/save", { username, inventory }])
       ];
     }
     case "inventory/save": {
       const { inventory } = message[1];
-      console.log("Saving inventory to model:", inventory);
       return { ...model, inventory };
     }
     case "store/purchase": {
       const { username } = message[1];
-      console.log("Purchasing pack for:", username);
+      const callbacks = message[2];
       return [
         model,
-        purchasePack(message[1], user)
-          .then((inventory) => {
-            console.log("Pack purchased, new inventory:", inventory);
-            return ["inventory/save", { username, inventory }];
-          })
+        purchasePack(message[1], user, callbacks)
+          .then((inventory) => ["inventory/save", { username, inventory }] as Msg)
       ];
     }
     case "profile/request": {
@@ -70,7 +60,8 @@ function requestInventory(
 
 function purchasePack(
   payload: { username: string; packType: string },
-  user: Auth.User
+  user: Auth.User,
+  callbacks: { onSuccess?: () => void; onFailure?: (err: Error) => void }
 ): Promise<InventoryItem[]> {
   return fetch(`/api/store`, {
     method: "POST",
@@ -82,10 +73,20 @@ function purchasePack(
   })
     .then((response: Response) => {
       if (response.status === 200) return response.json();
-      throw "Failed to purchase pack";
+      throw new Error("Failed to purchase pack");
     })
     .then((_data: any) => {
       // After purchasing, fetch updated inventory
       return requestInventory({ username: payload.username }, user);
+    })
+    .then((inventory: InventoryItem[]) => {
+      // Call onSuccess callback after successful purchase
+      if (callbacks.onSuccess) callbacks.onSuccess();
+      return inventory;
+    })
+    .catch((err: Error) => {
+      // Call onFailure callback if something went wrong
+      if (callbacks.onFailure) callbacks.onFailure(err);
+      throw err; // Re-throw to prevent the .then() chain in update from continuing
     });
 }

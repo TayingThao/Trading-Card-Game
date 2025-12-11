@@ -1,10 +1,18 @@
-import { View, Auth, Observer } from "@calpoly/mustang";
+import { View, Auth, Observer, Form, define } from "@calpoly/mustang";
 import { html, css } from "lit";
 import { state } from "lit/decorators.js";
 import { Msg } from "../messages";
 import { Model } from "../model";
 
+interface PurchaseForm {
+  packType: string;
+}
+
 export class StoreViewElement extends View<Model, Msg> {
+  static uses = define({
+    "mu-form": Form.Element
+  });
+
   @state()
   username?: string;
 
@@ -30,8 +38,7 @@ export class StoreViewElement extends View<Model, Msg> {
     });
   }
 
-  handleBuyPack(e: Event) {
-    e.preventDefault();
+  handleSubmit(event: Form.SubmitEvent<PurchaseForm>) {
     this.message = undefined;
     this.error = undefined;
 
@@ -42,71 +49,46 @@ export class StoreViewElement extends View<Model, Msg> {
 
     this.dispatchMessage([
       "store/purchase",
-      { username: this.username, packType: "pack1" }
+      { 
+        username: this.username, 
+        packType: event.detail.packType 
+      },
+      {
+        onSuccess: () => {
+          this.message = "Pack purchased successfully! Check your inventory.";
+        },
+        onFailure: (error: Error) => {
+          this.error = `Failed to purchase pack: ${error.message}`;
+        }
+      }
     ]);
-
-    // Show success message (the actual inventory update happens through the store)
-    this.message = "Purchase request sent! Check your inventory.";
   }
 
   render() {
     return html`
-      <div class="store-container">
+      <link rel="stylesheet" href="/styles/store.css">
+      <main>
         <h1>Buy a pack!</h1>
         <p>Packs cost 20 coins</p>
         
         ${this.message ? html`<p class="success">${this.message}</p>` : ''}
         ${this.error ? html`<p class="error">${this.error}</p>` : ''}
         
-        <form class="buy-form" @submit=${this.handleBuyPack}>
+        <mu-form 
+          class="buy-form" 
+          @mu-form:submit=${this.handleSubmit}>
+          <input type="hidden" name="packType" value="pack1" />
           <dl>
             <dt>Pack 1</dt>
             <dd>Contains 5 random cards</dd>
           </dl>
           <button type="submit">Buy Pack</button>
-        </form>
-      </div>
+        </mu-form>
+      </main>
     `;
   }
 
   static styles = css`
-    .store-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    h1 {
-      margin-top: var(--size-spacing-medium, 1rem);
-      margin-bottom: var(--size-spacing-small, 0.5rem);
-    }
-
-    p {
-      color: var(--color-text-main);
-      font-size: var(--font-size-main-text);
-      margin: 20px;
-    }
-
-    .buy-form {
-      background-color: var(--color-background-list);
-      padding: 30px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .buy-form dl {
-      margin-bottom: 20px;
-    }
-
-    .buy-form dt {
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .buy-form dd {
-      margin-left: 0;
-    }
-
     button {
       padding: 10px 20px;
       background-color: #007bff;
